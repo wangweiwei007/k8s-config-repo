@@ -20,7 +20,7 @@ spec:
       - name: mydevops-container
         # ✨ 关键点：这是 CI 脚本 (Step 7) 将会替换的字段！
         # 初始标签可以使用最新的稳定版本或 'latest'
-        image: registry.cn-hangzhou.aliyuncs.com/my-devops-ns/my-devops-rep:735fe5f7232380db37f2fda8b0fa9dcbba15d95d
+        image: registry.cn-hangzhou.aliyuncs.com/my-devops-ns/my-devops-rep:d6a495f0f0bc51245418e897b011fd988f789e5c
 
         ports:
         - containerPort: 8080
