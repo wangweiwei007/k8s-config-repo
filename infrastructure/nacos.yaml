@@ -1,0 +1,49 @@
+# nacos.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ruoyi-nacos
+  namespace: ruoyi-infra
+spec:
+  selector:
+    matchLabels:
+      app: ruoyi-nacos
+  template:
+    metadata:
+      labels:
+        app: ruoyi-nacos
+    spec:
+      containers:
+        - name: ruoyi-nacos
+          image: nacos/nacos-server:v2.2.3-slim # 建议使用官方镜像
+          env:
+            - name: MODE
+              value: "standalone"
+            - name: SPRING_DATASOURCE_PLATFORM
+              value: "mysql"
+            - name: MYSQL_SERVICE_HOST
+              value: "ruoyi-mysql" # 指向集群内的 MySQL Service
+            - name: MYSQL_SERVICE_PORT
+              value: "3306"
+            - name: MYSQL_SERVICE_USER
+              value: "root"
+            - name: MYSQL_SERVICE_PASSWORD
+              value: "password"
+            - name: MYSQL_SERVICE_DB_NAME
+              value: "ry-config" # 确保数据库里已经导入了 nacos-config.sql
+          ports:
+            - containerPort: 8848
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ruoyi-nacos
+  namespace: ruoyi-infra
+spec:
+  ports:
+    - port: 8848
+      name: http
+    - port: 9848 # Nacos 2.x 需要开启 gRPC 端口
+      name: grpc
+  selector:
+    app: ruoyi-nacos

@@ -1,0 +1,41 @@
+# mysql.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ruoyi-mysql
+  namespace: ruoyi-infra
+spec:
+  selector:
+    matchLabels:
+      app: ruoyi-mysql
+  template:
+    metadata:
+      labels:
+        app: ruoyi-mysql
+    spec:
+      containers:
+        - name: ruoyi-mysql
+          image: mysql:5.7
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "password" # 建议使用 Secret
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-data
+          hostPath:
+            path: /mnt/data/mysql # K3s 简易持久化
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ruoyi-mysql
+  namespace: ruoyi-infra
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: ruoyi-mysql
