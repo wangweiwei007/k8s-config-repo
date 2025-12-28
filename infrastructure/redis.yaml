@@ -14,8 +14,8 @@ spec:
         app: ruoyi-redis
     spec:
       containers:
-        - name: ruoyi-redis:6.0
-          image: redis:latest
+        - name: ruoyi-redis
+          image: redis:6.0
           ports:
             - containerPort: 6379
 ---
