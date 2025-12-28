@@ -30,7 +30,7 @@ spec:
             - name: MYSQL_SERVICE_USER
               value: "root"
             - name: MYSQL_SERVICE_PASSWORD
-              value: "password"
+              value: "123456"
             - name: MYSQL_SERVICE_DB_NAME
               value: "ry-config" # 确保数据库里已经导入了 nacos-config.sql
           ports:

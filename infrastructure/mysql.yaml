@@ -20,7 +20,7 @@ spec:
           image: mysql:5.7
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: 123456 # 建议使用 Secret
+              value: "123456" # 建议使用 Secret
           ports:
             - containerPort: 3306
           volumeMounts:
